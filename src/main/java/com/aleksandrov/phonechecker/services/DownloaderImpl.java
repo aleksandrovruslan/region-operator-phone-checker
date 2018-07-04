@@ -1,15 +1,14 @@
-package com.aleksandrov.phonechecker.utils;
-
-import org.springframework.stereotype.Component;
+package com.aleksandrov.phonechecker.services;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-@Component
-public class Downloader {
+@Service
+public class DownloaderImpl implements Downloader{
     //TODO put in order constants
     public static final String DOWNLOAD_URL_1 =
             "https://rossvyaz.ru/opendata/7710549038-Rosnumbase/Kody_ABC-3kh.csv";
@@ -29,11 +28,12 @@ public class Downloader {
 
     public static final String SAVE_PATH = "src/main/resources/static/";
 
+    @Override
     public void download() throws IOException {
-            download(DOWNLOAD_URL_1, INTERVAL1_CSV);
-            download(DOWNLOAD_URL_2, INTERVAL2_CSV);
-            download(DOWNLOAD_URL_3, INTERVAL3_CSV);
-            download(DOWNLOAD_URL_4, INTERVAL4_CSV);
+        download(DOWNLOAD_URL_1, INTERVAL1_CSV);
+        download(DOWNLOAD_URL_2, INTERVAL2_CSV);
+        download(DOWNLOAD_URL_3, INTERVAL3_CSV);
+        download(DOWNLOAD_URL_4, INTERVAL4_CSV);
     }
 
     public void download(String downloadURL, String fileName) throws IOException {
