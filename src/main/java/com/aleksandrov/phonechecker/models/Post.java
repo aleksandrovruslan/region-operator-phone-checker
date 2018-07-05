@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.sun.scenario.effect.Merge;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,10 +10,11 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String message;
+    private String comment;
     private LocalDateTime dateTime;
     @ManyToOne(optional = false, fetch = FetchType.EAGER
-            , cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+            , cascade = {CascadeType.MERGE, CascadeType.PERSIST
+            , CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "phone_number_id")
     private PhoneNumber phoneNumber;
 
@@ -19,9 +22,10 @@ public class Post {
         this.dateTime = LocalDateTime.now();
     }
 
-    public Post(String message) {
+    public Post(String comment, PhoneNumber phoneNumber) {
         this.dateTime = LocalDateTime.now();
-        this.message = message;
+        this.comment = comment;
+        this.phoneNumber = phoneNumber;
     }
 
     public long getId() {
@@ -32,16 +36,20 @@ public class Post {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getComment() {
+        return comment;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public PhoneNumber getPhoneNumber() {
@@ -71,7 +79,7 @@ public class Post {
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", message='" + message + '\'' +
+                ", comment='" + comment + '\'' +
                 ", dateTime=" + dateTime +
                 '}';
     }

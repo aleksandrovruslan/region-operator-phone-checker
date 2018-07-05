@@ -11,6 +11,7 @@ public class PhoneNumber {
     private int id;
     private int prefix;
     private int number;
+    //TODO do the validation and replace the region and the operator with the entity
     private String region;
     private String operator;
     @OneToMany(mappedBy = "phoneNumber", fetch = FetchType.EAGER)
@@ -69,6 +70,14 @@ public class PhoneNumber {
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
