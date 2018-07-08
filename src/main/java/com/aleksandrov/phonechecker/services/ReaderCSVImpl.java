@@ -68,9 +68,7 @@ public class ReaderCSVImpl implements ReaderCSV {
                             , operator, region));
                 }
             }
-            System.out.println(intervals.size());
             intervalService.addAll(intervals);
-            System.out.println(intervals.size());
         } catch (IOException e) {
             e.printStackTrace();
         }

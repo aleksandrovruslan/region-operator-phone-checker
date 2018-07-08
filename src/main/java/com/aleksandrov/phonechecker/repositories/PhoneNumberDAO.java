@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PhoneNumberDAO extends JpaRepository<PhoneNumber, Integer> {
     PhoneNumber findFirstByPrefixEqualsAndNumberEquals(String prefix, String number);
+    PhoneNumber findById(String id);
 }

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
-
 @Service
 @RequestMapping()
 public class PostServiceImpl implements PostService {
@@ -22,8 +20,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void addPost(Post post) {
-        PhoneNumber number = numberDAO.findFirstByPrefixEqualsAndNumberEquals(
-                post.getPhoneNumber().getPrefix(), post.getPhoneNumber().getNumber());
+        PhoneNumber number = numberDAO.findById(post.getPhoneNumber().getPrefix()
+                + post.getPhoneNumber().getNumber());
         if (number == null) {
             number = new PhoneNumber(post.getPhoneNumber().getPrefix()
                     , post.getPhoneNumber().getNumber());
@@ -31,7 +29,6 @@ public class PostServiceImpl implements PostService {
         }
 
         post.setPhoneNumber(number);
-        post.setDateTime(LocalDateTime.now());
         postDAO.save(post);
     }
 }

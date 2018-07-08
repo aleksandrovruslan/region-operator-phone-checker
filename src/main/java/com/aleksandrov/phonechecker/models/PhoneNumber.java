@@ -1,6 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
 import java.util.TreeSet;
@@ -8,10 +9,11 @@ import java.util.TreeSet;
 @Entity
 public class PhoneNumber {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
+    @NotNull
     @Pattern(regexp = "[0-9]{3}")
     private String prefix;
+    @NotNull
     @Pattern(regexp = "[0-9]{7}")
     private String number;
     transient private String region;
@@ -24,15 +26,16 @@ public class PhoneNumber {
 
     public PhoneNumber(@Pattern(regexp = "[0-9]{3}") String prefix
             , @Pattern(regexp = "[0-9]{7}") String number) {
+        this.id = prefix + number;
         this.prefix = prefix;
         this.number = number;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
