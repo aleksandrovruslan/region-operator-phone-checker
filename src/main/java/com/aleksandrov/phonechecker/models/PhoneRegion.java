@@ -3,6 +3,7 @@ package com.aleksandrov.phonechecker.models;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TimeZone;
 
 @Entity
 public class PhoneRegion {

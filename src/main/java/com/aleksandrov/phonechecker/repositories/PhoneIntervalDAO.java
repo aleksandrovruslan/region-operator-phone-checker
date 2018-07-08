@@ -2,6 +2,7 @@ package com.aleksandrov.phonechecker.repositories;
 
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +15,8 @@ public interface PhoneIntervalDAO extends JpaRepository<PhoneInterval, Integer> 
             "INNER JOIN PHONE_REGION PR ON PHONE_INTERVAL.REGION_ID = PR.ID "+
             "WHERE PHONE_INTERVAL.PREFIX = ? AND PHONE_INTERVAL.START_INTERVAL <= ? AND PHONE_INTERVAL.END_INTERVAL >= ? LIMIT 1")
     PhoneInterval findInterval(String prefix, String number, String number2);
+
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM PHONE_INTERVAL")
+    void deleteAll();
 }

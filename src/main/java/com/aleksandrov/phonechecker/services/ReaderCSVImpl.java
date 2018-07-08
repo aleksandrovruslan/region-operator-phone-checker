@@ -39,8 +39,8 @@ public class ReaderCSVImpl implements ReaderCSV {
         PhoneOperator operator;
         PhoneRegion region;
         Set<PhoneInterval> intervals = new HashSet<>();
-        Map<String, PhoneOperator> operatorsMap = new HashMap<>();
-        Map<String, PhoneRegion> regionsMap = new HashMap<>();
+        Map<String, PhoneOperator> operatorsMap = getOperators();
+        Map<String, PhoneRegion> regionsMap = getRegions();
 
         try {
             for (String path:files) {
@@ -67,11 +67,33 @@ public class ReaderCSVImpl implements ReaderCSV {
                             , strArr[1], strArr[2]
                             , operator, region));
                 }
+                br.close();
             }
+            intervalService.deleteAll();
             intervalService.addAll(intervals);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "Updated successfully.";
+    }
+
+    private Map<String, PhoneOperator> getOperators() {
+        Map<String, PhoneOperator> operators = new HashMap<>();
+        try {
+            operatorService.getOperators().forEach((operator) -> operators.put(operator.getName(), operator));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return operators;
+    }
+
+    private Map<String, PhoneRegion> getRegions() {
+        Map<String, PhoneRegion> regionMap = new HashMap<>();
+        try {
+            regionService.getRegions().forEach(region -> regionMap.put(region.getName(), region));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return regionMap;
     }
 }
