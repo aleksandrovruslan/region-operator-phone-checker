@@ -1,15 +1,19 @@
 package com.aleksandrov.phonechecker.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class PhoneInterval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int prefix;
-    private int startInterval;
-    private int endInterval;
+    @Pattern(regexp = "[0-9]{3}")
+    private String prefix;
+    @Pattern(regexp = "[0-9]{7}")
+    private String startInterval;
+    @Pattern(regexp = "[0-9]{7}")
+    private String endInterval;
     @ManyToOne(optional = false, fetch = FetchType.EAGER
             , cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "operator_id")
@@ -22,7 +26,9 @@ public class PhoneInterval {
     public PhoneInterval() {
     }
 
-    public PhoneInterval(int prefix, int startInterval, int endInterval
+    public PhoneInterval(@Pattern(regexp = "[0-9]{3}") String prefix
+            , @Pattern(regexp = "[0-9]{7}") String startInterval
+            , @Pattern(regexp = "[0-9]{7}") String endInterval
             , PhoneOperator operator, PhoneRegion region) {
         this.prefix = prefix;
         this.startInterval = startInterval;
@@ -39,27 +45,27 @@ public class PhoneInterval {
         this.id = id;
     }
 
-    public int getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public void setPrefix(int prefix) {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
-    public int getStartInterval() {
+    public String getStartInterval() {
         return startInterval;
     }
 
-    public void setStartInterval(int startInterval) {
+    public void setStartInterval(String startInterval) {
         this.startInterval = startInterval;
     }
 
-    public int getEndInterval() {
+    public String getEndInterval() {
         return endInterval;
     }
 
-    public void setEndInterval(int endInterval) {
+    public void setEndInterval(String endInterval) {
         this.endInterval = endInterval;
     }
 
@@ -79,23 +85,26 @@ public class PhoneInterval {
         this.region = region;
     }
 
+    //TODO think what to add to the comparison
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PhoneInterval that = (PhoneInterval) o;
+        PhoneInterval interval = (PhoneInterval) o;
 
-        if (prefix != that.prefix) return false;
-        if (startInterval != that.startInterval) return false;
-        return endInterval == that.endInterval;
+        if (!prefix.equals(interval.prefix)) return false;
+        if (!startInterval.equals(interval.startInterval)) return false;
+        return endInterval.equals(interval.endInterval);
     }
 
     @Override
     public int hashCode() {
-        int result = prefix;
-        result = 31 * result + startInterval;
-        result = 31 * result + endInterval;
+        int result = prefix.hashCode();
+        result = 31 * result + startInterval.hashCode();
+        result = 31 * result + endInterval.hashCode();
         return result;
     }
 
@@ -103,9 +112,9 @@ public class PhoneInterval {
     public String toString() {
         return "PhoneInterval{" +
                 "id=" + id +
-                ", prefix=" + prefix +
-                ", startInterval=" + startInterval +
-                ", endInterval=" + endInterval +
+                ", prefix='" + prefix + '\'' +
+                ", startInterval='" + startInterval + '\'' +
+                ", endInterval='" + endInterval + '\'' +
                 ", operator=" + operator +
                 ", region=" + region +
                 '}';

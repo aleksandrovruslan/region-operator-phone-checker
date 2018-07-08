@@ -1,6 +1,5 @@
 package com.aleksandrov.phonechecker.controllers.apiV1;
 
-import com.aleksandrov.phonechecker.models.PhoneNumber;
 import com.aleksandrov.phonechecker.models.Post;
 import com.aleksandrov.phonechecker.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

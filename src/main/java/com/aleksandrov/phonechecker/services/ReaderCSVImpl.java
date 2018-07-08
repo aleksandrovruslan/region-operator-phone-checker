@@ -47,6 +47,7 @@ public class ReaderCSVImpl implements ReaderCSV {
                 br = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_PATH + path), charsetNameW));
                 br.readLine();
                 String str;
+                PhoneInterval interval;
                 while ((str = br.readLine()) != null) {
                     String[] strArr = str.split(";");
                     operator = operatorsMap.get(strArr[4]);
@@ -62,12 +63,14 @@ public class ReaderCSVImpl implements ReaderCSV {
                         region = regionService.saveRegion(region);
                         regionsMap.put(region.getName(), region);
                     }
-                    intervals.add(new PhoneInterval(Integer.parseInt(strArr[0])
-                            , Integer.parseInt(strArr[1]), Integer.parseInt(strArr[2])
+                    intervals.add(new PhoneInterval(strArr[0]
+                            , strArr[1], strArr[2]
                             , operator, region));
                 }
             }
+            System.out.println(intervals.size());
             intervalService.addAll(intervals);
+            System.out.println(intervals.size());
         } catch (IOException e) {
             e.printStackTrace();
         }

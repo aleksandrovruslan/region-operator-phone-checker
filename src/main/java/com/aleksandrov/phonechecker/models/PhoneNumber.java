@@ -1,6 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -9,27 +10,22 @@ public class PhoneNumber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int prefix;
-    private int number;
-    //TODO do the validation and replace the region and the operator with the entity
-    private String region;
-    private String operator;
+    @Pattern(regexp = "[0-9]{3}")
+    private String prefix;
+    @Pattern(regexp = "[0-9]{7}")
+    private String number;
+    transient private String region;
+    transient private String operator;
     @OneToMany(mappedBy = "phoneNumber", fetch = FetchType.EAGER)
     private Set<Post> posts = new TreeSet<>();
 
     public PhoneNumber() {
     }
 
-    public PhoneNumber(int prefix, int number) {
+    public PhoneNumber(@Pattern(regexp = "[0-9]{3}") String prefix
+            , @Pattern(regexp = "[0-9]{7}") String number) {
         this.prefix = prefix;
         this.number = number;
-    }
-
-    public PhoneNumber(int prefix, int number, String region, String operator) {
-        this.prefix = prefix;
-        this.number = number;
-        this.region = region;
-        this.operator = operator;
     }
 
     public int getId() {
@@ -40,19 +36,19 @@ public class PhoneNumber {
         this.id = id;
     }
 
-    public int getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
-    public void setPrefix(int prefix) {
+    public void setPrefix(String prefix) {
         this.prefix = prefix;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -85,16 +81,16 @@ public class PhoneNumber {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PhoneNumber that = (PhoneNumber) o;
+        PhoneNumber number1 = (PhoneNumber) o;
 
-        if (prefix != that.prefix) return false;
-        return number == that.number;
+        if (!prefix.equals(number1.prefix)) return false;
+        return number.equals(number1.number);
     }
 
     @Override
     public int hashCode() {
-        int result = prefix;
-        result = 31 * result + number;
+        int result = prefix.hashCode();
+        result = 31 * result + number.hashCode();
         return result;
     }
 
@@ -102,10 +98,11 @@ public class PhoneNumber {
     public String toString() {
         return "PhoneNumber{" +
                 "id=" + id +
-                ", prefix=" + prefix +
-                ", number=" + number +
+                ", prefix='" + prefix + '\'' +
+                ", number='" + number + '\'' +
                 ", region='" + region + '\'' +
                 ", operator='" + operator + '\'' +
+                ", posts=" + posts +
                 '}';
     }
 }

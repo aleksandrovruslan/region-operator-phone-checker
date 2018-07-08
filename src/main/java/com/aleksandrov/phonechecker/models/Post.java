@@ -1,8 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
-import com.sun.scenario.effect.Merge;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,6 +9,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull
     private String comment;
     private LocalDateTime dateTime;
     @ManyToOne(optional = false, fetch = FetchType.EAGER
@@ -81,6 +81,8 @@ public class Post {
                 "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", dateTime=" + dateTime +
+                ", phoneNumber=" + phoneNumber.getPrefix() +
+                phoneNumber.getNumber() +
                 '}';
     }
 }
