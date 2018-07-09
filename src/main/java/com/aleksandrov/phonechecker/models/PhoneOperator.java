@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,9 +10,11 @@ import java.util.Set;
 public class PhoneOperator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
     private String name;
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<PhoneInterval> intervals = new HashSet<>();
 
     public PhoneOperator() {

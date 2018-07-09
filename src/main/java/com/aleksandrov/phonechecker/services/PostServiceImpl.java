@@ -31,4 +31,6 @@ public class PostServiceImpl implements PostService {
         post.setPhoneNumber(number);
         postDAO.save(post);
     }
+
+
 }

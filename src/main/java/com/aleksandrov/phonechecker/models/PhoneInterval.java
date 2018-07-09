@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
@@ -7,6 +9,7 @@ import javax.validation.constraints.Pattern;
 public class PhoneInterval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
     @Pattern(regexp = "[0-9]{3}")
     private String prefix;

@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,9 +11,11 @@ import java.util.TimeZone;
 public class PhoneRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
     private String name;
     @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<PhoneInterval> phoneIntervals = new HashSet<>();
 
     public PhoneRegion() {

@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -9,6 +11,7 @@ import java.util.TreeSet;
 @Entity
 public class PhoneNumber {
     @Id
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
     @NotNull
     @Pattern(regexp = "[0-9]{3}")

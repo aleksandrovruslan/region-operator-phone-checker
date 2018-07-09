@@ -1,5 +1,7 @@
 package com.aleksandrov.phonechecker.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private long id;
     @NotNull
     private String comment;
@@ -16,6 +19,7 @@ public class Post {
             , cascade = {CascadeType.MERGE, CascadeType.PERSIST
             , CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "phone_number_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PhoneNumber phoneNumber;
 
     public Post() {
