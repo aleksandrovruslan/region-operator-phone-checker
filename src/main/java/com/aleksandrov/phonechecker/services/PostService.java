@@ -1,7 +1,8 @@
 package com.aleksandrov.phonechecker.services;
 
+import com.aleksandrov.phonechecker.models.PhoneNumber;
 import com.aleksandrov.phonechecker.models.Post;
 
 public interface PostService {
-    void addPost(Post post);
+    PhoneNumber addPost(Post post);
 }

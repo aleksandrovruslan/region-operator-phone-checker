@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TimeZone;
 
 @Entity
 public class PhoneRegion {
@@ -14,6 +13,7 @@ public class PhoneRegion {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
     private String name;
+    private int timeZoneUTC;
     @OneToMany(mappedBy = "region", fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<PhoneInterval> phoneIntervals = new HashSet<>();
@@ -39,6 +39,14 @@ public class PhoneRegion {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getTimeZoneUTC() {
+        return timeZoneUTC;
+    }
+
+    public void setTimeZoneUTC(int timeZoneUTC) {
+        this.timeZoneUTC = timeZoneUTC;
     }
 
     public Set<PhoneInterval> getPhoneIntervals() {
@@ -69,6 +77,7 @@ public class PhoneRegion {
         return "PhoneRegion{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", timeZoneUTC=" + timeZoneUTC +
                 '}';
     }
 }

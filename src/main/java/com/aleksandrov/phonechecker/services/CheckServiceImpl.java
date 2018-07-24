@@ -2,52 +2,52 @@ package com.aleksandrov.phonechecker.services;
 
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 import com.aleksandrov.phonechecker.models.PhoneNumber;
-import com.aleksandrov.phonechecker.models.Post;
 import com.aleksandrov.phonechecker.repositories.PhoneIntervalDAO;
 import com.aleksandrov.phonechecker.repositories.PostDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class CheckServiceImpl implements CheckService {
+    private static final Logger log = LoggerFactory.getLogger("CheckServiceImpl");
     @Autowired
     private PhoneIntervalDAO intervalDAO;
     @Autowired
     private PostDAO postDAO;
+    private Pattern pattern = Pattern.compile("^[0-9]{10}$");
+    private Matcher matcher;
+
 
     @Override
-    public PhoneNumber check(PhoneNumber number) {
-        return fillRegionAndOperator(number);
+    public PhoneNumber check(String id) {
+        matcher = pattern.matcher(id);
+        if (!matcher.find()) {
+           throw new IllegalStateException("Некорректный номер.");
+        }
+        return fillRegionAndOperator(id.substring(0, 3), id.substring(3, 10));
     }
 
-    @Override
-    public List<PhoneNumber> checkAll(List<PhoneNumber> numbers) {
-        numbers.forEach(number -> check(number));
-        return numbers;
-    }
 
-    private PhoneNumber fillRegionAndOperator(PhoneNumber number) {
+    private PhoneNumber fillRegionAndOperator(String prefix, String number) {
+        PhoneNumber phoneNumber = new PhoneNumber(prefix, number);
         PhoneInterval interval = intervalDAO
                 .findTop1ByPrefixEqualsAndEndIntervalGreaterThanEqualAndStartIntervalLessThanEqual(
-                        number.getPrefix(), number.getNumber(), number.getNumber());
-        if (interval == null) {
-            number.setOperator("This number is not in service.");
-            number.setRegion("Region not found.");
-        } else {
-            number.setOperator(interval.getOperator().getName());
-            number.setRegion(interval.getRegion().getName());
-            try {
-                number.setId(number.getPrefix() + number.getNumber());
-                Set<Post> posts = new HashSet<>(postDAO.findAllByPhoneNumberEquals(number));
-                number.setPosts(posts);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                        prefix, number, number);
+        if (interval != null) {
+            phoneNumber.setOperator(interval.getOperator().getName());
+            phoneNumber.setRegion(interval.getRegion().getName());
+            phoneNumber.setTimeZoneUTC(interval.getRegion().getTimeZoneUTC());
         }
-        return number;
+        try {
+            phoneNumber.setPosts(postDAO.findAllByPhoneNumberEquals(phoneNumber));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return phoneNumber;
     }
 }

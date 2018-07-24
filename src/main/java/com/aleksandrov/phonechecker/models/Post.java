@@ -21,6 +21,7 @@ public class Post {
     @JoinColumn(name = "phone_number_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PhoneNumber phoneNumber;
+    private String userName = "Anonymous";
 
     public Post() {
         this.dateTime = LocalDateTime.now();
@@ -64,6 +65,14 @@ public class Post {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,8 +94,8 @@ public class Post {
                 "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", dateTime=" + dateTime +
-                ", phoneNumber=" + phoneNumber.getPrefix() +
-                phoneNumber.getNumber() +
+                ", phoneNumber=" + phoneNumber +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }

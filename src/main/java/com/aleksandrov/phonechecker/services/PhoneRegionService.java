@@ -12,6 +12,8 @@ public interface PhoneRegionService {
 
     PhoneRegion saveRegion(PhoneRegion region);
 
+    PhoneRegion updateRegion(PhoneRegion region);
+
     void saveRegions(Collection<PhoneRegion> regions);
 
     void deleteRegion(PhoneRegion region);

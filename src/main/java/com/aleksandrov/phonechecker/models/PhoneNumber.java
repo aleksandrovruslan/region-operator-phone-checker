@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Set;
-import java.util.TreeSet;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 public class PhoneNumber {
@@ -14,21 +14,23 @@ public class PhoneNumber {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
     @NotNull
-    @Pattern(regexp = "[0-9]{3}")
+    @Pattern(regexp = "^[0-9]{3}$")
     private String prefix;
     @NotNull
-    @Pattern(regexp = "[0-9]{7}")
+    @Pattern(regexp = "^[0-9]{7}$")
     private String number;
     transient private String region;
     transient private String operator;
+    transient private LocalDateTime serverTime = LocalDateTime.now();
+    transient private int timeZoneUTC = 3;
     @OneToMany(mappedBy = "phoneNumber", fetch = FetchType.EAGER)
-    private Set<Post> posts = new TreeSet<>();
+    private List<Post> posts = new LinkedList<>();
 
     public PhoneNumber() {
     }
 
-    public PhoneNumber(@Pattern(regexp = "[0-9]{3}") String prefix
-            , @Pattern(regexp = "[0-9]{7}") String number) {
+    public PhoneNumber(@Pattern(regexp = "^[0-9]{3}$") String prefix
+            , @Pattern(regexp = "^[0-9]{7}$") String number) {
         this.id = prefix + number;
         this.prefix = prefix;
         this.number = number;
@@ -74,11 +76,27 @@ public class PhoneNumber {
         this.operator = operator;
     }
 
-    public Set<Post> getPosts() {
+    public LocalDateTime getServerTime() {
+        return serverTime;
+    }
+
+    public void setServerTime(LocalDateTime serverTime) {
+        this.serverTime = serverTime;
+    }
+
+    public int getTimeZoneUTC() {
+        return timeZoneUTC;
+    }
+
+    public void setTimeZoneUTC(int timeZoneUTC) {
+        this.timeZoneUTC = timeZoneUTC;
+    }
+
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<Post> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 
@@ -103,11 +121,13 @@ public class PhoneNumber {
     @Override
     public String toString() {
         return "PhoneNumber{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", prefix='" + prefix + '\'' +
                 ", number='" + number + '\'' +
                 ", region='" + region + '\'' +
                 ", operator='" + operator + '\'' +
+                ", serverTime=" + serverTime +
+                ", timeZoneUTC=" + timeZoneUTC +
                 ", posts=" + posts +
                 '}';
     }

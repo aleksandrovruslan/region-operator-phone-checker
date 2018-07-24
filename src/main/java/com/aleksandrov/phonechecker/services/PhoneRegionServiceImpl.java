@@ -30,6 +30,11 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     }
 
     @Override
+    public PhoneRegion updateRegion(PhoneRegion region) {
+        return null;
+    }
+
+    @Override
     public void saveRegions(Collection<PhoneRegion> regions) {
         regionDAO.saveAll(regions);
     }

@@ -19,18 +19,17 @@ public class PostServiceImpl implements PostService {
     private CheckService checkService;
 
     @Override
-    public void addPost(Post post) {
-        PhoneNumber number = numberDAO.findById(post.getPhoneNumber().getPrefix()
+    public PhoneNumber addPost(Post post) {
+        PhoneNumber phoneNumber = numberDAO.findById(post.getPhoneNumber().getPrefix()
                 + post.getPhoneNumber().getNumber());
-        if (number == null) {
-            number = new PhoneNumber(post.getPhoneNumber().getPrefix()
+        if (phoneNumber == null) {
+            phoneNumber = new PhoneNumber(post.getPhoneNumber().getPrefix()
                     , post.getPhoneNumber().getNumber());
-            checkService.check(number);
+            checkService.check(phoneNumber.getPrefix() + phoneNumber.getNumber());
         }
-
-        post.setPhoneNumber(number);
+        post.setPhoneNumber(phoneNumber);
         postDAO.save(post);
+        phoneNumber.setPosts(postDAO.findAllByPhoneNumberEquals(phoneNumber));
+        return phoneNumber;
     }
-
-
 }

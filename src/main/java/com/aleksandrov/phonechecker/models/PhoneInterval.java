@@ -11,11 +11,11 @@ public class PhoneInterval {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
-    @Pattern(regexp = "[0-9]{3}")
+    @Pattern(regexp = "^[0-9]{3}$")
     private String prefix;
-    @Pattern(regexp = "[0-9]{7}")
+    @Pattern(regexp = "^[0-9]{7}$")
     private String startInterval;
-    @Pattern(regexp = "[0-9]{7}")
+    @Pattern(regexp = "^[0-9]{7}$")
     private String endInterval;
     @ManyToOne(optional = false, fetch = FetchType.EAGER
             , cascade = {CascadeType.REFRESH, CascadeType.DETACH})
