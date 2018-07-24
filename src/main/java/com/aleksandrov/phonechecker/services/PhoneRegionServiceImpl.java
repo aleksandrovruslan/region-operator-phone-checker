@@ -6,6 +6,7 @@ import com.aleksandrov.phonechecker.repositories.PhoneRegionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
 
     @Override
     public PhoneRegion getRegion(int id) {
-        return regionDAO.getOne(id);
+        return regionDAO.findById(id).get();
     }
 
     @Override
@@ -30,8 +31,9 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     }
 
     @Override
-    public PhoneRegion updateRegion(PhoneRegion region) {
-        return null;
+    public PhoneRegion updateRegion(@NotNull PhoneRegion region) {
+        getRegion(region.getId());
+        return regionDAO.save(region);
     }
 
     @Override

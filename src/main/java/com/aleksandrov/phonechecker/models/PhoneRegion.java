@@ -10,7 +10,6 @@ import java.util.Set;
 public class PhoneRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int id;
     private String name;
     private int timeZoneUTC;

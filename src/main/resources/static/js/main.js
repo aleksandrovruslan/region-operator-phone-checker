@@ -100,7 +100,8 @@ $(function(){
         $operator_result.text('Оператор: ' + phoneNumber.operator);
         var time = new Date(phoneNumber.serverTime);
         var timeZoneUTC = phoneNumber.timeZoneUTC;
-        if (timeZoneUTC !==null) {
+        console.log(timeZoneUTC);
+        if (timeZoneUTC >= 2 && timeZoneUTC <= 12) {
             time.setHours(time.getHours() - 3 + timeZoneUTC);
             $('#numberTime').text('Местное время абонента: ' + time.toLocaleTimeString('ru'));
         }

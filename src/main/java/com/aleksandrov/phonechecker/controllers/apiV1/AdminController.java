@@ -5,10 +5,7 @@ import com.aleksandrov.phonechecker.services.Downloader;
 import com.aleksandrov.phonechecker.services.PhoneRegionService;
 import com.aleksandrov.phonechecker.services.ReaderCSV;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -37,7 +34,7 @@ public class AdminController {
     }
 
     @PutMapping(UPDATE_REGION)
-    public PhoneRegion regionUpdate(PhoneRegion region) {
-        return regionService.saveRegion(region);
+    public PhoneRegion regionUpdate(@RequestBody PhoneRegion region) {
+        return regionService.updateRegion(region);
     }
 }
