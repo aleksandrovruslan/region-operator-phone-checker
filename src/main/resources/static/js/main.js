@@ -11,6 +11,7 @@ $(function(){
     $result_form = $('#result_form');
     $region_result = $('#region_result');
     $operator_result = $('#operator_result');
+    $numberTime = $('#numberTime');
     $comments_point = $('#comments_point');
 
     $(document).on('click', '#check_button', function () {
@@ -42,6 +43,7 @@ $(function(){
     });
 
     function checkNumber() {
+        // $text_comment.val('');
         $comments_point.empty();
 
         $.ajax({
@@ -61,10 +63,11 @@ $(function(){
     function extractPhoneNumber() {
         fullNumber = $phone.val().trim();
         if (!(regNumber.test(fullNumber))) {
+            $phone.attr("class", "form-control is-invalid");
             $phone.focus();
-            console.warn('incorrect number');
             return false;
         }
+        $phone.attr("class", "form-control is-valid");
         prefix = fullNumber.substr(0, 3);
         number = fullNumber.substr(3, 8);
         numberJSON = '{"prefix":"' + prefix +
@@ -100,10 +103,11 @@ $(function(){
         $operator_result.text('Оператор: ' + phoneNumber.operator);
         var time = new Date(phoneNumber.serverTime);
         var timeZoneUTC = phoneNumber.timeZoneUTC;
-        console.log(timeZoneUTC);
         if (timeZoneUTC >= 2 && timeZoneUTC <= 12) {
             time.setHours(time.getHours() - 3 + timeZoneUTC);
-            $('#numberTime').text('Местное время абонента: ' + time.toLocaleTimeString('ru'));
+            $numberTime.text('Местное время абонента: ' + time.toLocaleTimeString('ru'));
+        } else {
+            $numberTime.text('Местное время абонента: не определено');
         }
     }
 

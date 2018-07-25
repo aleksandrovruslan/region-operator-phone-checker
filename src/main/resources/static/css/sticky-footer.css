@@ -34,3 +34,10 @@ body {
 #comments_point {
     margin-bottom: 75px;
 }
+
+.error {
+    border: 1px solid red;
+}
+.not_error {
+    border: 1px solid green;
+}

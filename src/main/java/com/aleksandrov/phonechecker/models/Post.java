@@ -21,7 +21,7 @@ public class Post {
     @JoinColumn(name = "phone_number_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PhoneNumber phoneNumber;
-    private String userName = "Anonymous";
+    private String userName = "Гость";
 
     public Post() {
         this.dateTime = LocalDateTime.now();
