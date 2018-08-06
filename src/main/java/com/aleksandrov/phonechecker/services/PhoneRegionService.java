@@ -17,4 +17,6 @@ public interface PhoneRegionService {
     void saveRegions(Collection<PhoneRegion> regions);
 
     void deleteRegion(PhoneRegion region);
+
+    List<PhoneRegion> searchRegions(String searchString);
 }

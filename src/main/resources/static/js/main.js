@@ -63,11 +63,11 @@ $(function(){
     function extractPhoneNumber() {
         fullNumber = $phone.val().trim();
         if (!(regNumber.test(fullNumber))) {
-            $phone.attr("class", "form-control is-invalid");
+            $phone.attr('class', 'form-control is-invalid');
             $phone.focus();
             return false;
         }
-        $phone.attr("class", "form-control is-valid");
+        $phone.attr('class', 'form-control is-valid');
         prefix = fullNumber.substr(0, 3);
         number = fullNumber.substr(3, 8);
         numberJSON = '{"prefix":"' + prefix +
@@ -111,8 +111,7 @@ $(function(){
         }
     }
 
-    function fillComments(postsList) {
-        var posts = Array.from(postsList);
+    function fillComments(posts) {
         var comment;
         var date;
 
@@ -127,8 +126,8 @@ $(function(){
             comment = $('<div class="alert alert-info" role="alert"><br></div>');
             date = new Date(Date.parse(entry.dateTime));
             comment.prepend(date.toLocaleString('ru'));
-            comment.prepend(" ");
-            comment.prepend("<b>" + entry.userName + "</b>");
+            comment.prepend(' ');
+            comment.prepend('<b>' + entry.userName + '</b>');
             comment.append(entry.comment);
             $comments_point.prepend(comment);
         });

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(AdminController.ADMIN_MAPPING)
@@ -15,6 +16,8 @@ public class AdminController {
     public static final String ADMIN_MAPPING = "/api/v1/admin";
     public static final String UPDATE_BASE = "/update";
     public static final String UPDATE_REGION = "/region/";
+    public static final String SEARCH_REGIONS = "/region/search/{searchString}";
+
     @Autowired
     private Downloader downloader;
     @Autowired
@@ -36,5 +39,10 @@ public class AdminController {
     @PutMapping(UPDATE_REGION)
     public PhoneRegion regionUpdate(@RequestBody PhoneRegion region) {
         return regionService.updateRegion(region);
+    }
+
+    @GetMapping(SEARCH_REGIONS)
+    List<PhoneRegion> searchRegions(@PathVariable String searchString) {
+        return regionService.searchRegions(searchString);
     }
 }

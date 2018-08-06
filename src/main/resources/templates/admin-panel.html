@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="layout :: head(~{this :: title},_,~{this :: script})">
+    <title>Administrator panel</title>
+    <script type="text/javascript" src="/js/admin.js"></script>
+</head>
+<body>
+<div th:replace="layout :: header(_)">Header</div>
+<div th:replace="layout :: common(_,~{this :: #center},_)">
+    <div id="center">
+        <div class="alert alert-info" id="panel">
+            <div class="col-8">
+                <form>
+                    <label for="word_search">Enter chars for search</label>
+                    <div class="form-row">
+                        <div class="col-md-11">
+                            <input type="text" class="form-control" name="word_search" id="word_search"/>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="button" class="btn btn-primary" name="search_button" id="search_button" value="Regions search">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="result_panel"></div>
+    </div>
+</div>
+<div th:replace="layout :: footer">Footer</div>
+</body>
+</html>

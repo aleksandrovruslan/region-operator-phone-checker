@@ -3,6 +3,8 @@ package com.aleksandrov.phonechecker.services;
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 import com.aleksandrov.phonechecker.models.PhoneOperator;
 import com.aleksandrov.phonechecker.models.PhoneRegion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ import java.util.Set;
 
 @Component(value = "reader")
 public class ReaderCSVImpl implements ReaderCSV {
+    private static final Logger log = LoggerFactory.getLogger(ReaderCSVImpl.class);
     private static final String FILE_PATH = DownloaderImpl.SAVE_PATH;
     private static final String[] files = {DownloaderImpl.INTERVAL1_CSV
             , DownloaderImpl.INTERVAL2_CSV, DownloaderImpl.INTERVAL3_CSV
@@ -30,10 +33,8 @@ public class ReaderCSVImpl implements ReaderCSV {
     @Autowired
     private PhoneRegionService regionService;
 
-    //TODO divided into small methods
     @Override
     public String read() {
-        BufferedReader br;
         String charsetNameW = "windows-1251";
 
         PhoneOperator operator;
@@ -42,12 +43,12 @@ public class ReaderCSVImpl implements ReaderCSV {
         Map<String, PhoneOperator> operatorsMap = getOperators();
         Map<String, PhoneRegion> regionsMap = getRegions();
 
-        try {
-            for (String path:files) {
-                br = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_PATH + path), charsetNameW));
+        for (String path:files) {
+            try(BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(FILE_PATH + path), charsetNameW))) {
+
                 br.readLine();
                 String str;
-                PhoneInterval interval;
                 while ((str = br.readLine()) != null) {
                     String[] strArr = str.split(";");
                     operator = operatorsMap.get(strArr[4]);
@@ -67,12 +68,11 @@ public class ReaderCSVImpl implements ReaderCSV {
                             , strArr[1], strArr[2]
                             , operator, region));
                 }
-                br.close();
+                intervalService.deleteAll();
+                intervalService.addAll(intervals);
+            } catch (IOException e) {
+                log.error("ReaderCSVImpl read(): " + e);
             }
-            intervalService.deleteAll();
-            intervalService.addAll(intervals);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return "Updated successfully.";
     }

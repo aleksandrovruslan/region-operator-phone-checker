@@ -45,4 +45,9 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     public void deleteRegion(PhoneRegion region) {
         regionDAO.delete(region);
     }
+
+    @Override
+    public List<PhoneRegion> searchRegions(String searchString) {
+        return regionDAO.findAllByNameContainingIgnoreCase(searchString);
+    }
 }
