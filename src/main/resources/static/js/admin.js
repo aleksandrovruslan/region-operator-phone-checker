@@ -1,11 +1,9 @@
 $(function () {
-    var count = 0;
     $word_search = $('#word_search');
     $result_panel = $('#result_panel');
 
     $(document).on('click', '#search_button', function () {
         $result_panel.empty();
-        $result_panel.attr('class', 'alert alert-success');
         searchRegions($word_search.val());
     });
     
@@ -24,30 +22,17 @@ $(function () {
     }
 
     function fillRegions(regions) {
-        var temp = $('<div class="row" style="border: 1px solid #000"></div>');
-        var region;
-
-        regions.sort(function (a, b) {
-            var r = 0;
-            if (a.id > b.id) { r = 1; }
-            if (a.id < b.id) { r = -1; }
-            return r;
-        })
-
-        regions.forEach(function (entry) {
-            region = temp.clone();
-            region.append('<div class="col-11">');
-            region.append(entry.id);
-            region.append(' ' + entry.name + ' ' + entry.timeZoneUTC + ' ');
-            region.append('</div>');
-            region.append('<input type="text" class="col-1"/>');
-            $result_panel.append(region);
-        })
-
-        if (regions.length > 0) {
-            $result_panel.prepend('<div class="row" style="border: 1px solid #000"><div class="col-1">id</div><div class="col-11">region</div></div>')
-        } else {
-            $result_panel.append('Regions not found.');
-        }
+        $regions_table = $('#regions_table');
+        $regions_table = '<table id="regions_table" class="table table-striped table-bordered" style="width:100%">';
+        $regions_table += '<thead><tr><td>id</td><td>region</td><td>time UTC</td></tr></thead>';
+        $result_panel.append($regions_table);
+        $('#regions_table').DataTable({
+            data: regions,
+            columns: [
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'timeZoneUTC'}
+            ]
+        });
     }
 })
