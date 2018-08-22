@@ -38,7 +38,6 @@ $(function () {
             filters: true,
             dropdownMenu: true,
             columnSorting: true,
-            // colWidths: [50, 478, 70],
             contextMenu: true,
             colHeaders: [
                 'id',

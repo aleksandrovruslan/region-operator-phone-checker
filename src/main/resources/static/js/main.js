@@ -234,8 +234,6 @@ $(function(){
             filters: true,
             dropdownMenu: true,
             columnSorting: true,
-            // colWidths: [100, 223, 155, 80, 40],
-            // rowHeights: 55,
             contextMenu: true,
             colHeaders: [
                 'Номер',
