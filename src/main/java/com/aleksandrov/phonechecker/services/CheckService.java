@@ -2,6 +2,8 @@ package com.aleksandrov.phonechecker.services;
 
 import com.aleksandrov.phonechecker.models.PhoneNumber;
 
+import java.util.List;
+
 public interface CheckService {
-    PhoneNumber check(String id);
+    List<PhoneNumber> check(String id);
 }

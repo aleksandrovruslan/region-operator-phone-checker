@@ -8,11 +8,11 @@ import java.util.List;
 public interface PhoneRegionService {
     List<PhoneRegion> getRegions();
 
-    PhoneRegion getRegion(int id);
+    PhoneRegion getRegion(Integer id);
 
     PhoneRegion saveRegion(PhoneRegion region);
 
-    PhoneRegion updateRegion(PhoneRegion region);
+    PhoneRegion updateRegion(PhoneRegion region, Integer id);
 
     void saveRegions(Collection<PhoneRegion> regions);
 

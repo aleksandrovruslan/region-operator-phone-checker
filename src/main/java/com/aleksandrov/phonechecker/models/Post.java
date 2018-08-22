@@ -94,7 +94,6 @@ public class Post {
                 "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", dateTime=" + dateTime +
-                ", phoneNumber=" + phoneNumber +
                 ", userName='" + userName + '\'' +
                 '}';
     }

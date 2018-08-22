@@ -5,6 +5,7 @@ html {
     min-height: 100%;
 }
 body {
+    padding-top: 4.5rem;
     margin-bottom: 60px; /* Margin bottom by footer height */
 }
 .footer {
@@ -27,11 +28,19 @@ body {
     padding: 0 15px;
 }
 
-#result_form {
+#result_form, #multi_search_phone {
     display: none;
 }
 
-#comments_point, #result_panel {
+#hot-display-license-info {
+    display: none;
+}
+
+#comments_point, #result_panel, #result_table {
     margin-bottom: 75px;
     word-wrap: break-word;
+}
+
+.ht_master tr:nth-of-type(even) > td {
+    background-color: rgba(0, 0, 0, 0.03);
 }

@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head th:replace="layout :: head(~{this :: title},_,~{this :: script})">
+<head th:replace="layout :: head(~{this :: title},~{this :: link},~{this :: #link_js})">
     <title>Administrator panel</title>
-    <script type="text/javascript" src="/js/admin.js"></script>
+    <th:block id="link_js">
+    <script type="text/javascript" src="/js/admin/admin.js"></script>
+    <script type="text/javascript" src="/js/admin/handsontable.full.min.js"></script>
+    </th:block>
+    <link rel="stylesheet" type="text/css" href="/css/admin/handsontable.full.min.css">
 </head>
 <body>
-<div th:replace="layout :: header(_)">Header</div>
+
+<div th:replace="layout :: header(~{this :: #nav_head})">
+    <th:block id="nav_head">
+        <a class="navbar-brand" href="/admin-panel">Admin panel</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="regions">Regions</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#" id="numbers">Numbers</a>
+            </li>
+        </ul>
+    </th:block>
+</div>
+
 <div th:replace="layout :: common(_,~{this :: #center},_)">
     <div id="center">
-        <div class="alert alert-info" id="panel">
+        <div class="alert alert-info" id="search_panel">
             <div class="col-8">
                 <form>
-                    <label for="word_search">Enter chars for search</label>
+                    <label for="region_search">Enter chars for search</label>
                     <div class="form-row">
                         <div class="col-md-11">
-                            <input type="text" class="form-control" name="word_search" id="word_search"/>
+                            <input type="text" class="form-control" name="region_search" id="region_search"/>
                         </div>
                         <div class="col-md-1">
                             <input type="button" class="btn btn-primary" name="search_button" id="search_button" value="Regions search">
@@ -27,6 +45,8 @@
         <div id="result_panel"></div>
     </div>
 </div>
+
 <div th:replace="layout :: footer">Footer</div>
+
 </body>
 </html>

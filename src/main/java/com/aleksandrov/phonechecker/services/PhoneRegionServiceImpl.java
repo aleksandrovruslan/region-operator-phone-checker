@@ -1,5 +1,6 @@
 package com.aleksandrov.phonechecker.services;
 
+import com.aleksandrov.phonechecker.errors.RegionNotFoundException;
 import com.aleksandrov.phonechecker.models.PhoneRegion;
 import com.aleksandrov.phonechecker.repositories.PhoneRegionDAO;
 
@@ -21,8 +22,9 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     }
 
     @Override
-    public PhoneRegion getRegion(int id) {
-        return regionDAO.findById(id).get();
+    public PhoneRegion getRegion(Integer id) {
+        return regionDAO.findById(id)
+                .orElseThrow(() -> new RegionNotFoundException(id.toString()));
     }
 
     @Override
@@ -31,8 +33,8 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     }
 
     @Override
-    public PhoneRegion updateRegion(@NotNull PhoneRegion region) {
-        getRegion(region.getId());
+    public PhoneRegion updateRegion(@NotNull PhoneRegion region, @NotNull Integer id) {
+        getRegion(id);
         return regionDAO.save(region);
     }
 

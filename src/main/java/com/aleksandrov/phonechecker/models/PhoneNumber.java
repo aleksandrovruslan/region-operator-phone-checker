@@ -13,12 +13,15 @@ public class PhoneNumber {
     @Id
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @Pattern(regexp = "^[0-9]{3}$")
     private String prefix;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @Pattern(regexp = "^[0-9]{7}$")
     private String number;
+    transient private String fullNumber;
     transient private String region;
     transient private String operator;
     transient private LocalDateTime serverTime = LocalDateTime.now();
@@ -34,6 +37,11 @@ public class PhoneNumber {
         this.id = prefix + number;
         this.prefix = prefix;
         this.number = number;
+        this.fullNumber = prefix + number;
+    }
+
+    public PhoneNumber(String fullNumber) {
+        this.fullNumber = fullNumber;
     }
 
     public String getId() {
@@ -58,6 +66,14 @@ public class PhoneNumber {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getFullNumber() {
+        return fullNumber;
+    }
+
+    public void setFullNumber(String fullNumber) {
+        this.fullNumber = fullNumber;
     }
 
     public String getRegion() {
@@ -124,6 +140,7 @@ public class PhoneNumber {
                 "id='" + id + '\'' +
                 ", prefix='" + prefix + '\'' +
                 ", number='" + number + '\'' +
+                ", fullNumber='" + fullNumber + '\'' +
                 ", region='" + region + '\'' +
                 ", operator='" + operator + '\'' +
                 ", serverTime=" + serverTime +

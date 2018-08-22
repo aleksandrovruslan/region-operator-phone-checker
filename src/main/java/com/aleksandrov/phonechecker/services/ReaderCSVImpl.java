@@ -35,6 +35,7 @@ public class ReaderCSVImpl implements ReaderCSV {
 
     @Override
     public String read() {
+        intervalService.deleteAll();
         String charsetNameW = "windows-1251";
 
         PhoneOperator operator;
@@ -68,7 +69,6 @@ public class ReaderCSVImpl implements ReaderCSV {
                             , strArr[1], strArr[2]
                             , operator, region));
                 }
-                intervalService.deleteAll();
                 intervalService.addAll(intervals);
             } catch (IOException e) {
                 log.error("ReaderCSVImpl read(): " + e);
