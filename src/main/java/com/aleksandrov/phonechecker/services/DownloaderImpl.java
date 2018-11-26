@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 @Service
 public class DownloaderImpl implements Downloader{
@@ -29,11 +30,18 @@ public class DownloaderImpl implements Downloader{
     public static final String SAVE_PATH = "src/main/resources/static/";
 
     @Override
-    public void download() throws IOException {
-        download(DOWNLOAD_URL_1, INTERVAL1_CSV);
-        download(DOWNLOAD_URL_2, INTERVAL2_CSV);
-        download(DOWNLOAD_URL_3, INTERVAL3_CSV);
-        download(DOWNLOAD_URL_4, INTERVAL4_CSV);
+    public void download(Boolean updateState, List<String> updateStatusList, ReaderCSV readerCSV){
+        try {
+            download(DOWNLOAD_URL_1, INTERVAL1_CSV);
+            download(DOWNLOAD_URL_2, INTERVAL2_CSV);
+            download(DOWNLOAD_URL_3, INTERVAL3_CSV);
+            download(DOWNLOAD_URL_4, INTERVAL4_CSV);
+            readerCSV.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+            updateState = false;
+            updateStatusList.add("download error: " + e.getMessage());
+        }
     }
 
     public void download(String downloadURL, String fileName) throws IOException {

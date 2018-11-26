@@ -1,7 +1,7 @@
 package com.aleksandrov.phonechecker.services;
 
-import java.io.IOException;
+import java.util.List;
 
 public interface Downloader {
-    void download() throws IOException;
+    void download(Boolean updateState, List<String> updateStatusList, ReaderCSV readerCSV);
 }
