@@ -1,8 +1,11 @@
-package com.aleksandrov.phonechecker.services;
+package com.aleksandrov.phonechecker.services.Update;
 
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 import com.aleksandrov.phonechecker.models.PhoneOperator;
 import com.aleksandrov.phonechecker.models.PhoneRegion;
+import com.aleksandrov.phonechecker.services.PhoneIntervalService;
+import com.aleksandrov.phonechecker.services.PhoneOperatorService;
+import com.aleksandrov.phonechecker.services.PhoneRegionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,12 @@ import java.util.Set;
 @Component(value = "reader")
 public class ReaderCSVImpl implements ReaderCSV {
     private static final Logger log = LoggerFactory.getLogger(ReaderCSVImpl.class);
-    private static final String FILE_PATH = DownloaderImpl.SAVE_PATH;
-    private static final String[] files = {DownloaderImpl.INTERVAL1_CSV
-            , DownloaderImpl.INTERVAL2_CSV, DownloaderImpl.INTERVAL3_CSV
-            , DownloaderImpl.INTERVAL4_CSV};
+//    private static final String FILE_PATH = DownloaderImpl.SAVE_PATH;
+//    private static final String[] files = {DownloaderImpl.INTERVAL1_CSV
+//            , DownloaderImpl.INTERVAL2_CSV, DownloaderImpl.INTERVAL3_CSV
+//            , DownloaderImpl.INTERVAL4_CSV};
+private static final String FILE_PATH = null;
+    private static final String[] files = {null};
     @Autowired
     private PhoneIntervalService intervalService;
     @Autowired
@@ -41,8 +46,10 @@ public class ReaderCSVImpl implements ReaderCSV {
         PhoneOperator operator;
         PhoneRegion region;
         Set<PhoneInterval> intervals = new HashSet<>();
-        Map<String, PhoneOperator> operatorsMap = getOperators();
-        Map<String, PhoneRegion> regionsMap = getRegions();
+//        Map<String, PhoneOperator> operatorsMap = getOperators();
+//        Map<String, PhoneRegion> regionsMap = getRegions();
+        Map<String, PhoneOperator> operatorsMap = null;
+        Map<String, PhoneRegion> regionsMap = null;
 
         for (String path:files) {
             try(BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -77,23 +84,23 @@ public class ReaderCSVImpl implements ReaderCSV {
         return "Updated successfully.";
     }
 
-    private Map<String, PhoneOperator> getOperators() {
-        Map<String, PhoneOperator> operators = new HashMap<>();
-        try {
-            operatorService.getOperators().forEach((operator) -> operators.put(operator.getName(), operator));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return operators;
-    }
-
-    private Map<String, PhoneRegion> getRegions() {
-        Map<String, PhoneRegion> regionMap = new HashMap<>();
-        try {
-            regionService.getRegions().forEach(region -> regionMap.put(region.getName(), region));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return regionMap;
-    }
+//    private Map<String, PhoneOperator> getOperators() {
+//        Map<String, PhoneOperator> operators = new HashMap<>();
+//        try {
+//            operatorService.getOperators().forEach((operator) -> operators.put(operator.getName(), operator));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return operators;
+//    }
+//
+//    private Map<String, PhoneRegion> getRegions() {
+//        Map<String, PhoneRegion> regionMap = new HashMap<>();
+//        try {
+//            regionService.getRegions().forEach(region -> regionMap.put(region.getName(), region));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return regionMap;
+//    }
 }

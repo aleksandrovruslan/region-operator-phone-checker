@@ -11,7 +11,7 @@ public interface PhoneIntervalService {
 
     void addPhoneInterval(PhoneInterval interval);
 
-    void addAll(Set<PhoneInterval> intervals);
+    void addAll(Iterable<PhoneInterval> intervals);
 
     void deleteAll();
 }

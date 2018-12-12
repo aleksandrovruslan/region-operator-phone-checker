@@ -26,7 +26,7 @@ public class PhoneIntervalServiceImpl implements PhoneIntervalService {
     }
 
     @Override
-    public void addAll(Set<PhoneInterval> intervals) {
+    public void addAll(Iterable<PhoneInterval> intervals) {
         intervalDAO.saveAll(intervals);
     }
 
