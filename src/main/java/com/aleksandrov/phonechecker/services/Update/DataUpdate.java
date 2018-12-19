@@ -5,14 +5,18 @@ import com.aleksandrov.phonechecker.models.PhoneOperator;
 import com.aleksandrov.phonechecker.models.PhoneRegion;
 
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentMap;
 
-public interface TempDataForUpdate {
-    BlockingQueue<List<String>> getRawDownloadsString();
-    BlockingQueue<List<PhoneInterval>> getPhoneIntervals();
+public interface DataUpdate {
+    Queue<String> getUrlsQueue();
+    void setUrlsQueue(Queue<String> urlsQueue);
+    Queue<List<String>> getRawDownloadsString();
+    Queue<List<PhoneInterval>> getPhoneIntervals();
     ConcurrentMap<String, PhoneOperator> getOperators();
     ConcurrentMap<String, PhoneRegion> getRegions();
+    Queue<String> getUpdateStatus();
     void setEndUpdate(Runnable endUpdate);
     void endUpdate();
+    void prepare();
 }

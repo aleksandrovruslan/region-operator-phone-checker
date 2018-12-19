@@ -1,39 +1,47 @@
 package com.aleksandrov.phonechecker.services.Update;
-import com.aleksandrov.phonechecker.models.PhoneInterval;
-import com.aleksandrov.phonechecker.models.PhoneOperator;
-import com.aleksandrov.phonechecker.models.PhoneRegion;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Phaser;
 
 @Service
 public class UpdateControllerImpl implements UpdateController {
     @Autowired
+    private DataUpdate dataUpdate;
+    @Autowired
     private Downloader downloader;
     @Autowired
     private RegionsAndOperatorExtractor extractor;
+    @Autowired
+    private RawStringHandler rawStringHandler;
+    @Autowired
+    private DataSaver dataSaver;
+    @Autowired
+    private IntervalsCleaner intervalsCleaner;
 
-    private final BlockingQueue<List<String>> rawStrings = new LinkedBlockingQueue<>();
-    private final BlockingQueue<List<PhoneInterval>> phoneIntervals = new LinkedBlockingQueue<>();
-    private final ConcurrentMap<String, PhoneOperator> operators = new ConcurrentHashMap<>();
-    private final ConcurrentMap<String, PhoneRegion> regions = new ConcurrentHashMap<>();
+    private Phaser phaser = new Phaser(2);
 
     @Override
-    public void performUpdate(List<String> updateStatusList, Runnable endUpdateState) {
-        updateStatusList.clear();
-        updateStatusList.add("Start update " + new Date());
-        Thread threadExtractor = new Thread(() ->
-                extractor.extract(updateStatusList, rawStrings,
-                        phoneIntervals, operators, regions,endUpdateState));
-        Thread threadDownloader = new Thread(() -> downloader
-                .download(updateStatusList, threadExtractor, endUpdateState, rawStrings));
-        threadExtractor.start();
-        threadDownloader.start();
+    public void performUpdate() {
+        dataUpdate.prepare();
+        dataUpdate.getUpdateStatus().add("Start update " + new Date());
+        new Thread(() -> {
+            extractor.extract();
+            run();
+        }).start();
+        new Thread(() -> run()).start();
+    }
+
+    private void run() {
+        downloader.download();
+        phaser.arrive();
+        rawStringHandler.perform();
+        phaser.arriveAndAwaitAdvance();
+        dataSaver.save(intervalsCleaner);
+        phaser.arriveAndAwaitAdvance();
+        dataUpdate.endUpdate();
+        phaser.arriveAndDeregister();
     }
 }

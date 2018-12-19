@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+/logs/
 
 # BlueJ files
 *.ctxt
@@ -52,7 +53,6 @@ hs_err_pid*
 /target/
 /out/
 /nbproject
-/logs
 *.csv
 handsontable.full.min.js
 handsontable.full.min.css
