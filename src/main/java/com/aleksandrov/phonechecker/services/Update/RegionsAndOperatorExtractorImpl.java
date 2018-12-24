@@ -18,27 +18,11 @@ public class RegionsAndOperatorExtractorImpl implements RegionsAndOperatorExtrac
 
     @Override
     public void extract() {
-        findOperators();
+        operatorService.getOperators().forEach((operator) ->
+                dataUpdate.getOperators().put(operator.getName(), operator));
         dataUpdate.getUpdateStatus().add("Phone operators fined " + new Date());
-        findRegions();
+        regionService.getRegions().forEach(region ->
+                dataUpdate.getRegions().put(region.getName(), region));
         dataUpdate.getUpdateStatus().add("Phone regions fined " + new Date());
-    }
-
-    private void findOperators() {
-        try {
-            operatorService.getOperators().forEach((operator) ->
-                    dataUpdate.getOperators().put(operator.getName(), operator));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void findRegions() {
-        try {
-            regionService.getRegions().forEach(region ->
-                    dataUpdate.getRegions().put(region.getName(), region));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
