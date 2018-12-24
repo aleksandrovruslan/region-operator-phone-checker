@@ -9,12 +9,16 @@ public class IntervalsCleaner {
     @Autowired
     private PhoneIntervalService intervalService;
 
-    private volatile boolean cleaned;
+    private boolean cleaned;
 
     void clean() {
         if (!cleaned) {
-            cleaned = true;
-            intervalService.deleteAll();
+            synchronized (this) {
+                if (!cleaned) {
+                    cleaned = true;
+                    intervalService.deleteAll();
+                }
+            }
         }
     }
 }
