@@ -13,7 +13,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                     .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/admin-panel", "/api/v1/admin/**").authenticated()
+                    .antMatchers("/admin-panel", "/api/v1/admin/**", "/h2-console/**")
+                    .authenticated()
                 .and()
                     .formLogin()
                     .loginPage("/login")
