@@ -4,8 +4,8 @@
 <head th:replace="layout :: head(~{this :: title},~{this :: link},~{this :: #link_js})">
     <title>Administrator panel</title>
     <th:block id="link_js">
-    <script type="text/javascript" src="/js/admin/admin.js"></script>
-    <script type="text/javascript" src="/js/admin/handsontable.full.min.js"></script>
+        <script type="text/javascript" src="/js/admin/admin.js"></script>
+        <script type="text/javascript" src="/js/admin/handsontable.full.min.js"></script>
     </th:block>
     <link rel="stylesheet" type="text/css" href="/css/admin/handsontable.full.min.css">
 </head>
@@ -21,6 +21,10 @@
             <li>
                 <a class="nav-link" href="#" id="numbers">Numbers</a>
             </li>
+            <form th:action="@{/logout}" method="post" id="logout">
+                <input type="hidden" name="mess" value=""/>
+                <a href="javascript:;" class="nav-link" onclick="parentNode.submit();">Sign Out</a>
+            </form>
         </ul>
     </th:block>
 </div>
@@ -36,7 +40,8 @@
                             <input type="text" class="form-control" name="region_search" id="region_search"/>
                         </div>
                         <div class="col-md-1">
-                            <input type="button" class="btn btn-primary" name="search_button" id="search_button" value="Regions search">
+                            <input type="button" class="btn btn-primary" name="search_button" id="search_button"
+                                   value="Regions search">
                         </div>
                     </div>
                 </form>

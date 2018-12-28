@@ -1,10 +1,62 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:replace="layout :: head(~{this :: title},~{this :: link},~{this :: #link_js})">
+    <title>Administrator panel</title>
+    <th:block id="link_js">
+        <script type="text/javascript" src="/js/admin/admin.js"></script>
+        <script type="text/javascript" src="/js/admin/handsontable.full.min.js"></script>
+    </th:block>
+    <link rel="stylesheet" type="text/css" href="/css/admin/handsontable.full.min.css">
 </head>
 <body>
+
+<div th:replace="layout :: header(~{this :: #nav_head})">
+    <th:block id="nav_head">
+        <a class="navbar-brand" href="/">Home</a>
+    </th:block>
+</div>
+
+<div th:replace="layout :: common(_,~{this :: #center},_)">
+    <div id="center">
+        <div class="alert alert-info" id="login_form">
+            <div class="col-8">
+                <form th:action="@{/login}" method="post">
+                    <label for="login_form">
+                        <div th:if="${param.error}">
+                            Invalid username and password.
+                        </div>
+                        <div th:if="${param.logout}">
+                            Enter login and password.
+                        </div>
+                    </label>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-11">
+                            <label for="username"> User Name :</label>
+                            <input type="text" name="username" id="username"/>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-11">
+                            <label for="password"> Password:</label>
+                            <input type="password" name="password" id="password"/>
+                        </div>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="col-md-5">
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-primary" value="Sign in">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout :: footer">Footer</div>
 
 </body>
 </html>
