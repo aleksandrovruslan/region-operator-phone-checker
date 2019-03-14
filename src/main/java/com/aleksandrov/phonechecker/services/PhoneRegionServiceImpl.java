@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class PhoneRegionServiceImpl implements PhoneRegionService {
+
     @Autowired
     private PhoneRegionDAO regionDAO;
 
@@ -52,4 +53,5 @@ public class PhoneRegionServiceImpl implements PhoneRegionService {
     public List<PhoneRegion> searchRegions(String searchString) {
         return regionDAO.findAllByNameContainingIgnoreCase(searchString);
     }
+
 }

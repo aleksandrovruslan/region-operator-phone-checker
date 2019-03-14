@@ -3,9 +3,8 @@ package com.aleksandrov.phonechecker.services.Update;
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 import com.aleksandrov.phonechecker.models.PhoneOperator;
 import com.aleksandrov.phonechecker.models.PhoneRegion;
-import com.aleksandrov.phonechecker.utils.ConfigProperties;
+import com.aleksandrov.phonechecker.utils.LinksParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +12,10 @@ import java.util.Queue;
 import java.util.concurrent.*;
 
 @Service
-@Scope("singleton")
 public class DataUpdateImpl implements DataUpdate {
+
     @Autowired
-    private ConfigProperties configProperties;
+    private LinksParser linksParser;
 
     /**
      * Queue with urls files for download.
@@ -60,10 +59,6 @@ public class DataUpdateImpl implements DataUpdate {
         return urlsQueue;
     }
 
-    public void setUrlsQueue(Queue<String> urlsQueue) {
-        this.urlsQueue = urlsQueue;
-    }
-
     @Override
     public Queue<List<String>> getRawDownloadsString() {
         return rawDownloadsStrings;
@@ -100,8 +95,7 @@ public class DataUpdateImpl implements DataUpdate {
 
     @Override
     public void prepare() {
-        urlsQueue = new ConcurrentLinkedQueue<>(
-                configProperties.getDownloadUrl());
+        urlsQueue = linksParser.getLinks();
         updateStatus.clear();
     }
 

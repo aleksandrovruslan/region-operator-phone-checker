@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service
 public class RawStringHandlerImpl implements RawStringHandler {
+
     @Autowired
     private DataUpdate dataUpdate;
     @Autowired
@@ -73,4 +74,5 @@ public class RawStringHandlerImpl implements RawStringHandler {
         }
         dataUpdate.getPhoneIntervals().add(intervalList);
     }
+
 }

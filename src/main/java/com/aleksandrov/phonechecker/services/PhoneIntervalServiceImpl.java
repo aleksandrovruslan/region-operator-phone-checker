@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Service
 public class PhoneIntervalServiceImpl implements PhoneIntervalService {
+
     @Autowired
     private PhoneIntervalDAO intervalDAO;
 
@@ -34,4 +35,5 @@ public class PhoneIntervalServiceImpl implements PhoneIntervalService {
     public void deleteAll() {
         intervalDAO.deleteAll();
     }
+
 }

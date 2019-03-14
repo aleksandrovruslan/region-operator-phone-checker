@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern;
 
 @Entity
 public class PhoneInterval {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -17,22 +18,22 @@ public class PhoneInterval {
     private String startInterval;
     @Pattern(regexp = "^[0-9]{7}$")
     private String endInterval;
-    @ManyToOne(optional = false, fetch = FetchType.EAGER
-            , cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(optional = false, fetch = FetchType.EAGER,
+            cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "operator_id")
     private PhoneOperator operator;
-    @ManyToOne(optional = false, fetch = FetchType.EAGER
-            , cascade = {CascadeType.REFRESH, CascadeType.DETACH})
+    @ManyToOne(optional = false, fetch = FetchType.EAGER,
+            cascade = {CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "region_id")
     private PhoneRegion region;
 
     public PhoneInterval() {
     }
 
-    public PhoneInterval(@Pattern(regexp = "[0-9]{3}") String prefix
-            , @Pattern(regexp = "[0-9]{7}") String startInterval
-            , @Pattern(regexp = "[0-9]{7}") String endInterval
-            , PhoneOperator operator, PhoneRegion region) {
+    public PhoneInterval(@Pattern(regexp = "[0-9]{3}") String prefix,
+                         @Pattern(regexp = "[0-9]{7}") String startInterval,
+                         @Pattern(regexp = "[0-9]{7}") String endInterval,
+                         PhoneOperator operator, PhoneRegion region) {
         this.prefix = prefix;
         this.startInterval = startInterval;
         this.endInterval = endInterval;
@@ -93,13 +94,19 @@ public class PhoneInterval {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PhoneInterval interval = (PhoneInterval) o;
-
-        if (!prefix.equals(interval.prefix)) return false;
-        if (!startInterval.equals(interval.startInterval)) return false;
+        if (!prefix.equals(interval.prefix)) {
+            return false;
+        }
+        if (!startInterval.equals(interval.startInterval)) {
+            return false;
+        }
         return endInterval.equals(interval.endInterval);
     }
 
@@ -122,4 +129,5 @@ public class PhoneInterval {
                 ", region=" + region +
                 '}';
     }
+
 }

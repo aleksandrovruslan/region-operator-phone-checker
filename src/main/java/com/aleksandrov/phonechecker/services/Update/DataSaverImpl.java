@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class DataSaverImpl implements DataSaver {
+
     @Autowired
     private DataUpdate dataUpdate;
     @Autowired
@@ -25,6 +26,5 @@ public class DataSaverImpl implements DataSaver {
             intervalList = dataUpdate.getPhoneIntervals().poll();
         }
     }
-
 
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 @Service
 @Scope("singleton")
 public class Updater {
+
     @Autowired
     private UpdateController controller;
     private DataUpdate dataUpdate;
@@ -47,4 +48,5 @@ public class Updater {
             updateState = false;
         }
     }
+
 }

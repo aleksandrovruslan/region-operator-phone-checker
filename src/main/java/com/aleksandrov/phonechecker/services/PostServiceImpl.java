@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Service
 @RequestMapping()
 public class PostServiceImpl implements PostService {
+
     @Autowired
     private PhoneNumberDAO numberDAO;
     @Autowired
@@ -32,4 +33,5 @@ public class PostServiceImpl implements PostService {
         phoneNumber.setPosts(postDAO.findAllByPhoneNumberEquals(phoneNumber));
         return phoneNumber;
     }
+
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Service
 public class RegionsAndOperatorExtractorImpl implements RegionsAndOperatorExtractor {
+
     @Autowired
     private DataUpdate dataUpdate;
     @Autowired
@@ -25,4 +26,5 @@ public class RegionsAndOperatorExtractorImpl implements RegionsAndOperatorExtrac
                 dataUpdate.getRegions().put(region.getName(), region));
         dataUpdate.getUpdateStatus().add("Phone regions fined " + new Date());
     }
+
 }

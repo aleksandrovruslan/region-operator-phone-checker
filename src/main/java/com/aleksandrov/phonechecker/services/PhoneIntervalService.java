@@ -3,7 +3,6 @@ package com.aleksandrov.phonechecker.services;
 import com.aleksandrov.phonechecker.models.PhoneInterval;
 
 import java.util.List;
-import java.util.Set;
 
 public interface PhoneIntervalService {
 
@@ -14,4 +13,5 @@ public interface PhoneIntervalService {
     void addAll(Iterable<PhoneInterval> intervals);
 
     void deleteAll();
+
 }

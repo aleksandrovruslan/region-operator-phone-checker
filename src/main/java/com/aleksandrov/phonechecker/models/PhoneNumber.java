@@ -10,6 +10,7 @@ import java.util.*;
 
 @Entity
 public class PhoneNumber {
+
     @Id
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String id;
@@ -21,19 +22,19 @@ public class PhoneNumber {
     @NotNull
     @Pattern(regexp = "^[0-9]{7}$")
     private String number;
-    transient private String fullNumber;
-    transient private String region;
-    transient private String operator;
-    transient private LocalDateTime serverTime = LocalDateTime.now();
-    transient private int timeZoneUTC = 3;
+    private transient String fullNumber;
+    private transient String region;
+    private transient String operator;
+    private transient LocalDateTime serverTime = LocalDateTime.now();
+    private transient int timeZoneUTC = 3;
     @OneToMany(mappedBy = "phoneNumber", fetch = FetchType.EAGER)
     private List<Post> posts = new LinkedList<>();
 
     public PhoneNumber() {
     }
 
-    public PhoneNumber(@Pattern(regexp = "^[0-9]{3}$") String prefix
-            , @Pattern(regexp = "^[0-9]{7}$") String number) {
+    public PhoneNumber(@Pattern(regexp = "^[0-9]{3}$") String prefix,
+                       @Pattern(regexp = "^[0-9]{7}$") String number) {
         this.id = prefix + number;
         this.prefix = prefix;
         this.number = number;
@@ -118,12 +119,16 @@ public class PhoneNumber {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PhoneNumber number1 = (PhoneNumber) o;
-
-        if (!prefix.equals(number1.prefix)) return false;
+        if (!prefix.equals(number1.prefix)) {
+            return false;
+        }
         return number.equals(number1.number);
     }
 
@@ -148,4 +153,5 @@ public class PhoneNumber {
                 ", posts=" + posts +
                 '}';
     }
+
 }

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Post {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -15,9 +16,9 @@ public class Post {
     @NotNull
     private String comment;
     private LocalDateTime dateTime;
-    @ManyToOne(optional = false, fetch = FetchType.EAGER
-            , cascade = {CascadeType.MERGE, CascadeType.PERSIST
-            , CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(optional = false, fetch = FetchType.EAGER,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+                    CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "phone_number_id")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PhoneNumber phoneNumber;
@@ -75,11 +76,13 @@ public class Post {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Post post = (Post) o;
-
         return id == post.id;
     }
 
@@ -97,4 +100,5 @@ public class Post {
                 ", userName='" + userName + '\'' +
                 '}';
     }
+
 }

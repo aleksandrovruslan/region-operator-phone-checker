@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface PhoneOperatorService {
+
     List<PhoneOperator> getOperators();
 
     PhoneOperator getOperator(int id);
@@ -15,4 +16,5 @@ public interface PhoneOperatorService {
     void saveOperators(Collection<PhoneOperator> operators);
 
     void deleteOperator(PhoneOperator operator);
+
 }

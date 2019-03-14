@@ -8,6 +8,7 @@ import java.util.concurrent.Phaser;
 
 @Service
 public class UpdateControllerImpl implements UpdateController {
+
     @Autowired
     private DataUpdate dataUpdate;
     @Autowired
@@ -44,4 +45,5 @@ public class UpdateControllerImpl implements UpdateController {
         dataUpdate.endUpdate();
         phaser.arriveAndDeregister();
     }
+
 }

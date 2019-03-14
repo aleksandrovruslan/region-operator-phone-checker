@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(PostController.POST_MAPPING)
 public class PostController {
+
     public static final String POST_MAPPING = "/api/v1/post";
     public static final String ADD_POST = "/add/";
     @Autowired
@@ -21,4 +22,5 @@ public class PostController {
     public PhoneNumber addPost(@RequestBody Post post) {
         return postService.addPost(post);
     }
+
 }

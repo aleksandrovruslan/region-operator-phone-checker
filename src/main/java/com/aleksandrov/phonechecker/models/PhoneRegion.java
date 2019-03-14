@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 public class PhoneRegion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -58,11 +59,13 @@ public class PhoneRegion {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PhoneRegion that = (PhoneRegion) o;
-
         return name.equals(that.name);
     }
 
@@ -79,4 +82,5 @@ public class PhoneRegion {
                 ", timeZoneUTC=" + timeZoneUTC +
                 '}';
     }
+
 }

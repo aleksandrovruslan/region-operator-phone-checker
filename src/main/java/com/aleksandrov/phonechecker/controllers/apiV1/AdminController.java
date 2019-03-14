@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(AdminController.ADMIN_MAPPING)
 public class AdminController {
+
     public static final String ADMIN_MAPPING = "/api/v1/admin";
     public static final String UPDATE_BASE = "/update/startUpdate";
     public static final String UPDATE_STATUS_LIST = "/update/status";
@@ -36,7 +37,8 @@ public class AdminController {
     }
 
     @PutMapping(UPDATE_REGION)
-    public ResponseEntity<?> regionUpdate(@RequestBody PhoneRegion region, @PathVariable("id") Integer id) {
+    public ResponseEntity<?> regionUpdate(@RequestBody PhoneRegion region,
+                                          @PathVariable("id") Integer id) {
         regionService.updateRegion(region, id);
         return ResponseEntity.ok("resource saved");
     }

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface PhoneRegionService {
+
     List<PhoneRegion> getRegions();
 
     PhoneRegion getRegion(Integer id);
@@ -19,4 +20,5 @@ public interface PhoneRegionService {
     void deleteRegion(PhoneRegion region);
 
     List<PhoneRegion> searchRegions(String searchString);
+
 }

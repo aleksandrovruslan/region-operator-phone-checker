@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 public class PhoneOperator {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -50,11 +51,13 @@ public class PhoneOperator {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         PhoneOperator that = (PhoneOperator) o;
-
         return name.equals(that.name);
     }
 
@@ -70,4 +73,5 @@ public class PhoneOperator {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IntervalsCleaner {
+
     @Autowired
     private PhoneIntervalService intervalService;
 
@@ -21,4 +22,5 @@ public class IntervalsCleaner {
             }
         }
     }
+
 }

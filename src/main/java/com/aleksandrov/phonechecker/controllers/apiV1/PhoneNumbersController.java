@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping(PhoneNumbersController.CHECK_PHONES_MAPPING)
 public class PhoneNumbersController {
+
     public final static String CHECK_PHONES_MAPPING = "/api/v1/numbers";
     public final static String CHECK_PHONES_GET = "/{id}";
 
@@ -21,4 +22,5 @@ public class PhoneNumbersController {
     public List<PhoneNumber> get(@PathVariable String id) {
         return checkService.check(id);
     }
+
 }

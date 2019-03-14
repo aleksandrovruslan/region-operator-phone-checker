@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -24,4 +25,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .permitAll();
     }
+
 }

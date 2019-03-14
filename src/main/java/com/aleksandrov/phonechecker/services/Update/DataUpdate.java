@@ -9,14 +9,23 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentMap;
 
 public interface DataUpdate {
+
     Queue<String> getUrlsQueue();
-    void setUrlsQueue(Queue<String> urlsQueue);
+
     Queue<List<String>> getRawDownloadsString();
+
     Queue<List<PhoneInterval>> getPhoneIntervals();
+
     ConcurrentMap<String, PhoneOperator> getOperators();
+
     ConcurrentMap<String, PhoneRegion> getRegions();
+
     Queue<String> getUpdateStatus();
+
     void setEndUpdate(Runnable endUpdate);
+
     void endUpdate();
+
     void prepare();
+
 }

@@ -9,4 +9,5 @@ public class RegionOperatorPhoneCheckerApplication {
     public static void main(String[] args) {
         SpringApplication.run(RegionOperatorPhoneCheckerApplication.class, args);
     }
+
 }

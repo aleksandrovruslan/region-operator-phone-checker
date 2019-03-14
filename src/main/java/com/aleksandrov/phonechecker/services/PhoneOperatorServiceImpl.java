@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class PhoneOperatorServiceImpl implements PhoneOperatorService {
+
     @Autowired
     private PhoneOperatorDAO operatorDAO;
 
@@ -37,4 +38,5 @@ public class PhoneOperatorServiceImpl implements PhoneOperatorService {
     public void deleteOperator(PhoneOperator operator) {
         operatorDAO.delete(operator);
     }
+
 }

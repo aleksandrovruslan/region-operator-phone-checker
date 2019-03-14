@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class DownloaderImpl implements Downloader {
+
     @Autowired
     private DataUpdate dataUpdate;
 
@@ -51,4 +52,5 @@ public class DownloaderImpl implements Downloader {
         }
         return rawStrings;
     }
+
 }

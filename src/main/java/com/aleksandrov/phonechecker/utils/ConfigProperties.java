@@ -11,9 +11,10 @@ import java.util.Set;
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix = "app")
 public class ConfigProperties {
+
     private List<String> downloadUrl;
     private String downloadPage;
-    private Set<String> downloadFileNames;
+    private List<String> downloadFileNames;
     private String startWrap;
     private String endWrap;
     private String linkPrefix;
@@ -35,11 +36,11 @@ public class ConfigProperties {
         this.downloadPage = downloadPage;
     }
 
-    public Set<String> getDownloadFileNames() {
+    public List<String> getDownloadFileNames() {
         return downloadFileNames;
     }
 
-    public void setDownloadFileNames(Set<String> downloadFileNames) {
+    public void setDownloadFileNames(List<String> downloadFileNames) {
         this.downloadFileNames = downloadFileNames;
     }
 
@@ -74,4 +75,5 @@ public class ConfigProperties {
     public void setSplitDelimiter(String splitDelimiter) {
         this.splitDelimiter = splitDelimiter;
     }
+
 }
