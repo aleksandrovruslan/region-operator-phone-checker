@@ -5,28 +5,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 
 @Component
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix = "app")
 public class ConfigProperties {
 
-    private List<String> downloadUrl;
     private String downloadPage;
     private List<String> downloadFileNames;
     private String startWrap;
     private String endWrap;
     private String linkPrefix;
     private String splitDelimiter;
-
-    public List<String> getDownloadUrl() {
-        return downloadUrl;
-    }
-
-    public void setDownloadUrl(List<String> downloadUrl) {
-        this.downloadUrl = downloadUrl;
-    }
 
     public String getDownloadPage() {
         return downloadPage;

@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -20,7 +19,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RegionOperatorPhoneCheckerApplication.class)
-@WebAppConfiguration
 public class StringsExtractorTest {
 
     @InjectMocks
@@ -50,7 +48,7 @@ public class StringsExtractorTest {
     }
 
     @Test
-    public void with_valid_argument_set_links() {
+    public void with_valid_argument_collection_links() {
         Collection<String> lines = new ArrayList<>();
         lines.add(downloadPage);
         expectedQueue = extractor.extractStrings(lines);
@@ -62,13 +60,13 @@ public class StringsExtractorTest {
     }
 
     @Test
-    public void with_empty_argument_empty_set() {
+    public void with_empty_argument_empty_collection() {
         expectedQueue = extractor.extractStrings(new ArrayList<>());
         assertEquals(expectedQueue.size(), 0);
     }
 
     @Test
-    public void without_links_argument_empty_set() {
+    public void without_links_argument_empty_collection() {
         expectedQueue = extractor.extractStrings(Arrays.asList(new String[]{"sjahfskajf", "sajhdjas", "CSV-ABC-3"}));
         assertEquals(expectedQueue.size(), 0);
     }

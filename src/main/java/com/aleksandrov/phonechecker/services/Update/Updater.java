@@ -1,28 +1,26 @@
 package com.aleksandrov.phonechecker.services.Update;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Queue;
 
 @Service
-@Scope("singleton")
 public class Updater {
 
-    @Autowired
     private UpdateController controller;
     private DataUpdate dataUpdate;
-
     private volatile boolean updateState;
 
     @Autowired
-    public Updater(DataUpdate dataUpdate) {
+    public Updater(DataUpdate dataUpdate, UpdateController controller) {
         this.dataUpdate = dataUpdate;
+        this.controller = controller;
         dataUpdate.setEndUpdate(this::endUpdateState);
     }
 
-    public Iterable<String> startUpdate() {
+    public Queue<String> startUpdate() {
         if (!updateState) {
             synchronized (Updater.class) {
                 if (!updateState) {
@@ -34,7 +32,7 @@ public class Updater {
         return dataUpdate.getUpdateStatus();
     }
 
-    public Iterable<String> getUpdateStatusList() {
+    public Queue<String> getUpdateStatusList() {
         return dataUpdate.getUpdateStatus();
     }
 

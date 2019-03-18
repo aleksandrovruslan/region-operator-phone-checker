@@ -14,7 +14,6 @@ import java.util.concurrent.*;
 @Service
 public class DataUpdateImpl implements DataUpdate {
 
-    @Autowired
     private LinksParser linksParser;
 
     /**
@@ -53,6 +52,11 @@ public class DataUpdateImpl implements DataUpdate {
      * Complete the update and notify all unfinished threads.
      */
     private Runnable endUpdate;
+
+    @Autowired
+    public DataUpdateImpl(LinksParser linksParser) {
+        this.linksParser = linksParser;
+    }
 
     @Override
     public Queue<String> getUrlsQueue() {
