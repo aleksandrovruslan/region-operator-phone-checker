@@ -1,5 +1,6 @@
 package com.aleksandrov.phonechecker.services.Update;
 
+import com.aleksandrov.phonechecker.RegionOperatorPhoneCheckerApplication;
 import com.aleksandrov.phonechecker.RegionOperatorPhoneCheckerApplicationTests;
 import com.aleksandrov.phonechecker.utils.LinksParser;
 import org.junit.Before;
@@ -15,7 +16,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = RegionOperatorPhoneCheckerApplicationTests.class)
+@ContextConfiguration(classes = RegionOperatorPhoneCheckerApplication.class)
 public class UpdaterTest {
 
     @Mock
